@@ -1,6 +1,7 @@
 import argparse
 import sys
 from pathlib import Path
+from tools.checksec import ChecksecTool
 
 
 def main():
@@ -34,6 +35,16 @@ def main():
     print(f"Cible : {args.binary}")
     print(f"Modèle : {args.model}")
     print("Analyse en cours ...")
+
+    checksec = ChecksecTool()
+    result = checksec.run(str(args.binary))
+
+    if result.success:
+        print(f"\n[+] checksec : {result.raw_output}")
+        for key, value in result.parsed.items():
+            print(f"    {key}: {value}")
+    else:
+        print(f"\n[-] checksec a échoué : {result.error}")
 
 
 if __name__ == "__main__":

@@ -7,3 +7,7 @@ build/
 .eggs/
 *.so
 .venv/
+challenges/**
+!challenges/*/
+!challenges/*/*.c
+!challenges/*/*.py
