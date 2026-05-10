@@ -3,6 +3,7 @@ import sys
 from pathlib import Path
 from tools.checksec import ChecksecTool
 from tools.fileinfo import FileInfoTool
+from tools.strings import StringsTool
 
 
 def main():
@@ -19,6 +20,12 @@ def main():
         type=str,
         default="llama3.1:8b",
         help="Modèle Ollama à utiliser (defaut : llama3.1:8b)",
+    )
+    parser.add_argument(
+        "--flag-format",
+        type=str,
+        default=None,
+        help="Préfixe du flag",
     )
 
     args = parser.parse_args()
@@ -54,6 +61,14 @@ def main():
         print(f"\n[+] fileinfo : {result.raw_output}")
     else:
         print(f"\n[-] fileinfo a échoué : {result.error}")
+
+    strings = StringsTool()
+    result = strings.run(str(args.binary))
+
+    if result.success:
+        print(f"\n[+] strings : {result.raw_output}")
+    else:
+        print(f"\n[-] strings a échoué : {result.error}")
 
 
 if __name__ == "__main__":
