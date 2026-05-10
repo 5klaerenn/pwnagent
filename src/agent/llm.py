@@ -1,11 +1,15 @@
 import json
+import os
 import httpx
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 class LLMClient:
     def __init__(self, model: str = "llama3.1:8b"):
         self.model = model
-        self.base_url = "http://localhost:11434"
+        self.base_url = os.environ["OLLAMA_URL"]
 
     def complete(self, prompt: str) -> dict:
         """Envoie un prompt a Ollama et retourne une réponse en JSON"""

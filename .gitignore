@@ -11,3 +11,4 @@ challenges/**
 !challenges/*/
 !challenges/*/*.c
 !challenges/*/*.py
+.env
