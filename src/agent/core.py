@@ -2,6 +2,7 @@ import argparse
 import sys
 from pathlib import Path
 from tools.checksec import ChecksecTool
+from tools.fileinfo import FileInfoTool
 
 
 def main():
@@ -45,6 +46,14 @@ def main():
             print(f"    {key}: {value}")
     else:
         print(f"\n[-] checksec a échoué : {result.error}")
+
+    fileinfo = FileInfoTool()
+    result = fileinfo.run(str(args.binary))
+
+    if result.success:
+        print(f"\n[+] fileinfo : {result.raw_output}")
+    else:
+        print(f"\n[-] fileinfo a échoué : {result.error}")
 
 
 if __name__ == "__main__":
